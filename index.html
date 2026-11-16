@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta name="robots" content="noindex, nofollow">
+  <title>A note for you &middot; Nerat</title>
+
+  <!-- Google Fonts: Cormorant Garamond (luxury editorial serif) & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Reenie+Beanie&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Ambient Golden Dust Canvas -->
+  <canvas id="ambientCanvas" class="ambient-canvas"></canvas>
+
+  <!-- =========================================================
+       AUDIO AMBIENCE BUTTON (Web Audio API - No external mp3 needed)
+       ========================================================= -->
+  <button class="sound-toggle" id="soundToggle" aria-label="Toggle soothing ambient sound" title="Sound toggle">
+    <span class="sound-wave-icon" id="soundIcon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+      </svg>
+    </span>
+    <span class="sound-label" id="soundLabel">Sound</span>
+  </button>
+
+  <!-- =========================================================
+       STORY PROGRESS BAR (Top Instagram / Editorial indicator)
+       ========================================================= -->
+  <header class="story-header" id="storyHeader">
+    <div class="progress-track" id="progressTrack">
+      <div class="progress-bar-segment" data-step="0"><span class="bar-fill"></span></div>
+      <div class="progress-bar-segment" data-step="1"><span class="bar-fill"></span></div>
+      <div class="progress-bar-segment" data-step="2"><span class="bar-fill"></span></div>
+      <div class="progress-bar-segment" data-step="3"><span class="bar-fill"></span></div>
+      <div class="progress-bar-segment" data-step="4"><span class="bar-fill"></span></div>
+      <div class="progress-bar-segment" data-step="5"><span class="bar-fill"></span></div>
+    </div>
+    <div class="header-status">
+      <span class="brand-subtle">A Note for Nerat</span>
+      <span class="chapter-indicator" id="chapterIndicator">01 / 06</span>
+    </div>
+  </header>
+
+  <!-- =========================================================
+       MAIN STORY DECK (Cinematic full-height cards)
+       ========================================================= -->
+  <main class="deck-container" id="deckContainer">
+
+    <!-- -------------------------------------------------------
+         SLIDE 1: OPENING SCREEN
+         ------------------------------------------------------- -->
+    <section class="slide-card active" data-index="0" id="slide0">
+      <div class="slide-bg-wrapper">
+        <img src="images/opening.jpg" alt="Precious" class="slide-bg-photo" id="openingPhoto">
+        <div class="slide-scrim"></div>
+      </div>
+
+      <div class="slide-inner opening-inner">
+        <div class="stamp-badge">
+          <span class="stamp-dot"></span>
+          <span>02 November</span>
+        </div>
+
+        <div class="hero-text-block">
+          <h1 class="main-heading">
+            Happy belated birthday, Precious <span class="heart-symbol">🤍</span>
+          </h1>
+          <p class="main-subtext">
+            Late, but I made this for you.
+          </p>
+        </div>
+
+        <div class="tap-hint-wrapper">
+          <button class="action-pill" id="startBtn">
+            <span>Tap to open</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- -------------------------------------------------------
+         SLIDE 2: OUR STORY (Timeline & Polaroids)
+         ------------------------------------------------------- -->
+    <section class="slide-card" data-index="1" id="slide1">
+      <div class="slide-inner story-inner">
+        <div class="section-kicker">Chapter 01 · Beginnings</div>
+        <h2 class="editorial-title">Our Story</h2>
+
+        <div class="story-lead-quote">
+          <span class="ornament-quote">“</span>
+          <p class="quote-body">
+            It started in 100 level, same department, same class.
+          </p>
+        </div>
+
+        <!-- Interactive Polaroid Stack -->
+        <div class="polaroid-stack-container" id="polaroidStack">
+          
+          <!-- Memory 1 -->
+          <div class="polaroid-card current" data-memory="0">
+            <div class="polaroid-tape"></div>
+            <div class="polaroid-photo-frame">
+              <img src="images/story1.jpg" alt="Memory 1" loading="lazy" class="polaroid-img">
+            </div>
+            <div class="polaroid-caption">
+              <span class="polaroid-handwriting">When you took my phone in 100 level just to leave selfies like this in my gallery 😂</span>
+            </div>
+          </div>
+
+          <!-- Memory 2 -->
+          <div class="polaroid-card next" data-memory="1">
+            <div class="polaroid-tape"></div>
+            <div class="polaroid-photo-frame">
+              <img src="images/story2.jpg" alt="Memory 2" loading="lazy" class="polaroid-img">
+            </div>
+            <div class="polaroid-caption">
+              <span class="polaroid-handwriting">Same class, same department. Back when it all started.</span>
+            </div>
+          </div>
+
+          <!-- Memory 3 -->
+          <div class="polaroid-card behind" data-memory="2">
+            <div class="polaroid-tape"></div>
+            <div class="polaroid-photo-frame">
+              <img src="images/story3.jpg" alt="Memory 3" loading="lazy" class="polaroid-img">
+            </div>
+            <div class="polaroid-caption">
+              <span class="polaroid-handwriting">Lab practicals. Always finding a way to make everywhere lively.</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="polaroid-controls">
+          <span class="stack-counter" id="polaroidCounter">Photo 1 of 3</span>
+          <button class="cycle-polaroid-btn" id="nextPolaroidBtn" aria-label="Next memory photo">
+            Next photo ↻
+          </button>
+        </div>
+
+        <!-- Story Conclusion -->
+        <div class="story-anchored-note">
+          <p class="anchored-text">
+            Somewhere between then and now, you became one of the most important people in my life.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- -------------------------------------------------------
+         SLIDE 3: WHAT I APPRECIATE ABOUT YOU
+         ------------------------------------------------------- -->
+    <section class="slide-card" data-index="2" id="slide2">
+      <div class="slide-inner appreciation-inner">
+        <div class="section-kicker">Chapter 02 · Gratitude</div>
+        <h2 class="editorial-title">What I Appreciate About You</h2>
+
+        <div class="appreciation-scroll-area">
+          <div class="praise-card">
+            <div class="praise-number">01</div>
+            <p class="praise-text">
+              You talk a lot, and honestly? I low-key really like it. It's never quiet or dull when you're around.
+            </p>
+          </div>
+
+          <div class="praise-card">
+            <div class="praise-number">02</div>
+            <p class="praise-text">
+              You always know the right thing to do at the right time. You just get things.
+            </p>
+          </div>
+
+          <div class="praise-card">
+            <div class="praise-number">03</div>
+            <p class="praise-text">
+              You cook so well. Every time you cooked for me, I noticed the effort you put in, and it meant a lot to me.
+            </p>
+          </div>
+
+          <div class="praise-card">
+            <div class="praise-number">04</div>
+            <p class="praise-text">
+              On my birthday you showed up with a gift and gave me cash too. Thank you for that. I should have appreciated you properly then.
+            </p>
+          </div>
+
+          <div class="praise-card highlight-card">
+            <div class="praise-gem">✦</div>
+            <p class="praise-text-hero">
+              And honestly, you're genuinely beautiful, Nerat. Inside and out. Not just one thing—all of you.
+            </p>
+          </div>
+
+          <!-- Gallery Strip Inside Appreciation -->
+          <div class="gallery-strip-container">
+            <span class="gallery-strip-title">More photos you snapped on my phone · 100 level</span>
+            <div class="gallery-film-strip">
+              <div class="film-frame" data-gallery-src="images/gallery1.jpg">
+                <img src="images/gallery1.jpg" alt="Gallery photo 1" loading="lazy" class="film-img">
+              </div>
+              <div class="film-frame" data-gallery-src="images/gallery2.jpg">
+                <img src="images/gallery2.jpg" alt="Gallery photo 2" loading="lazy" class="film-img">
+              </div>
+              <div class="film-frame" data-gallery-src="images/gallery3.jpg">
+                <img src="images/gallery3.jpg" alt="Gallery photo 3" loading="lazy" class="film-img">
+              </div>
+              <div class="film-frame" data-gallery-src="images/gallery4.jpg">
+                <img src="images/gallery4.jpg" alt="Precious in a patterned blouse" loading="lazy" class="film-img">
+              </div>
+              <div class="film-frame" data-gallery-src="images/gallery5.jpg">
+                <img src="images/gallery5.jpg" alt="A photo of Precious with a friend" loading="lazy" class="film-img">
+              </div>
+              <div class="film-frame" data-gallery-src="images/gallery6.jpg">
+                <img src="images/gallery6.jpg" alt="Precious outdoors, holding a hand" loading="lazy" class="film-img">
+              </div>
+            </div>
+            <div class="gallery-video-card">
+              <video controls preload="metadata" playsinline poster="images/gallery4.jpg" aria-label="A short video featuring Precious">
+                <source src="images/gallery-video.mp4" type="video/mp4">
+                Your browser does not support the video element.
+              </video>
+              <span class="gallery-video-caption">A little video memory — and yes, I'm in it too.</span>
+            </div>
+            <span class="gallery-tap-hint">Tap any frame to zoom</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- -------------------------------------------------------
+         SLIDE 4: I OWE YOU AN APOLOGY
+         ------------------------------------------------------- -->
+    <section class="slide-card" data-index="3" id="slide3">
+      <div class="slide-inner apology-inner">
+        <div class="section-kicker">Chapter 03 · Reflection</div>
+        <h2 class="editorial-title">I Owe You an Apology</h2>
+
+        <div class="letter-card">
+          <div class="letter-line-gold"></div>
+          
+          <div class="letter-paragraph">
+            <p>I wasn't giving you the attention you deserved, and I left you confused without explaining why. That wasn't fair to you.</p>
+          </div>
+
+          <div class="letter-sep"></div>
+
+          <div class="letter-paragraph">
+            <p>We argued, and I blocked you. That hurt you, and you had every reason to walk away.</p>
+          </div>
+
+          <div class="letter-sep"></div>
+
+          <div class="letter-paragraph">
+            <p>Instead, you didn't give up on us. Even when I made things hard and hurt you, you stayed persistent and kept coming back willing to try. I don't overlook that—it means a whole lot to me.</p>
+          </div>
+
+          <div class="letter-sep"></div>
+
+          <div class="letter-paragraph sincere-close">
+            <p>I'm really sorry, Neratu. I'm just glad we're talking again.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- -------------------------------------------------------
+         SLIDE 5: NO PRESSURE
+         ------------------------------------------------------- -->
+    <section class="slide-card" data-index="4" id="slide4">
+      <div class="slide-inner no-pressure-inner">
+        <div class="section-kicker">Chapter 04 · Clarity</div>
+        <h2 class="editorial-title">No Pressure</h2>
+
+        <div class="statement-container">
+          <div class="statement-card">
+            <p class="statement-prominent">
+              I'm not doing this to ask for anything or rush you into anything.
+            </p>
+            <div class="statement-divider">✦</div>
+            <p class="statement-middle">
+              I just wanted you to know that you matter to me, that I see how much effort you've put in, and that I'm thankful to have you in my life.
+            </p>
+            <div class="statement-divider">✦</div>
+            <p class="statement-grounded">
+              Whatever comes next, we'll take it one honest step at a time. <span class="heart-symbol">🤍</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- -------------------------------------------------------
+         SLIDE 6: CLOSING
+         ------------------------------------------------------- -->
+    <section class="slide-card" data-index="5" id="slide5">
+      <div class="slide-inner closing-inner">
+        <div class="closing-seal-wrapper">
+          <div class="wax-seal-circle">
+            <span class="seal-letters">N · P</span>
+          </div>
+        </div>
+
+        <div class="closing-message-box">
+          <span class="closing-label">November 02</span>
+          <h2 class="closing-big-text">
+            Happy belated birthday, Precious.
+          </h2>
+          <p class="closing-soft-sub">
+            Grateful for where we are, and taking it one step at a time.
+          </p>
+        </div>
+
+        <div class="restart-note">
+          <button class="text-link" id="restartBtn">Replay from the start ↺</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================
+       BOTTOM NAVIGATION BAR (Tactile Mobile Prev / Next)
+       ========================================================= -->
+  <footer class="deck-nav" id="deckNav">
+    <button class="nav-btn prev-btn" id="prevBtn" aria-label="Previous chapter" disabled>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+      <span>Prev</span>
+    </button>
+
+    <div class="swipe-hint" id="swipeHint">
+      <span>Swipe or tap</span>
+    </div>
+
+    <button class="nav-btn next-btn" id="nextBtn" aria-label="Next chapter">
+      <span>Next</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </button>
+  </footer>
+
+  <!-- =========================================================
+       PHOTO LIGHTBOX MODAL
+       ========================================================= -->
+  <div class="lightbox-modal" id="lightboxModal" aria-hidden="true">
+    <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+    <div class="lightbox-shell">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Close photo">✕</button>
+      <img src="" alt="Enlarged memory" id="lightboxImage" class="lightbox-display-img">
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
